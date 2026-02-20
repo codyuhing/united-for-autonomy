@@ -151,10 +151,25 @@
             color: #cbd5e1; 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
-            min-height: 100px;
+            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        .member-card img {
+            max-width: 100%;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        .member-card:hover img {
+            filter: brightness(0) invert(1);
+            opacity: 1;
+            transform: scale(1.05);
         }
         .member-card:hover { 
             border-color: rgba(96, 165, 250, 0.8); 
@@ -473,34 +488,34 @@
             <p class="about-text">United for Autonomy is a coalition of forward-thinking industries and mission-driven nonprofits united to advance U.S. leadership in autonomous vehicle innovation. We are committed to ensuring this transformative technology delivers on its promise of safety, accessibility, economic growth, and supply chain resilience. Through collaboration, advocacy, and education, we work to shape policies and public understanding that secure America's position at the forefront of autonomous mobility for the benefit of all.</p>
             <h3 class="section-title" style="font-size: 1.5rem; margin-top: 4rem;">Our Coalition Members</h3>
             <div class="members-grid">
-                <div class="member-card">Autonomous Vehicle Industry Association</div>
-                <div class="member-card">ACES - Mobility Coalition</div>
-                <div class="member-card">Alliance for Automotive Innovation</div>
-                <div class="member-card">American Council of the Blind</div>
-                <div class="member-card">American Trucking Associations</div>
-                <div class="member-card">AUVSI</div>
-                <div class="member-card">Bay Area Council</div>
-                <div class="member-card">Blinded Veterans Association</div>
-                <div class="member-card">Chamber of Progress</div>
-                <div class="member-card">Consumer Technology Association</div>
-                <div class="member-card">Contra Costa Transportation Authority</div>
-                <div class="member-card">Institute for Safer Trucking</div>
-                <div class="member-card">ITS America</div>
-                <div class="member-card">Jacksonville Transportation Authority</div>
-                <div class="member-card">MEMA</div>
-                <div class="member-card">National Association of Manufacturers</div>
-                <div class="member-card">National Council on Independent Living</div>
-                <div class="member-card">National Federation of the Blind</div>
-                <div class="member-card">National Retail Federation</div>
-                <div class="member-card">National Venture Capital Association</div>
-                <div class="member-card">Partners for Automated Vehicle Education</div>
-                <div class="member-card">Reason Foundation</div>
-                <div class="member-card">Road Safe America</div>
-                <div class="member-card">Safer Roads for All</div>
-                <div class="member-card">TechNet</div>
-                <div class="member-card">Truck & Engine Manufacturers</div>
-                <div class="member-card">U.S. Chamber of Commerce</div>
-                <div class="member-card">United Spinal Association</div>
+                <div class="member-card"><img src="images/logos/avia.jpg" alt="Autonomous Vehicle Industry Association"></div>
+                <div class="member-card"><img src="images/logos/aces.png" alt="ACES - Mobility Coalition"></div>
+                <div class="member-card"><img src="images/logos/alliance-automotive-innovation.png" alt="Alliance for Automotive Innovation"></div>
+                <div class="member-card"><img src="images/logos/american-council-blind.png" alt="American Council of the Blind"></div>
+                <div class="member-card"><img src="images/logos/american-trucking.png" alt="American Trucking Associations"></div>
+                <div class="member-card"><img src="images/logos/auvsi.png" alt="AUVSI"></div>
+                <div class="member-card"><img src="images/logos/bay-area-council.png" alt="Bay Area Council"></div>
+                <div class="member-card"><img src="images/logos/blinded-veterans.png" alt="Blinded Veterans Association"></div>
+                <div class="member-card"><img src="images/logos/chamber-progress.png" alt="Chamber of Progress"></div>
+                <div class="member-card"><img src="images/logos/consumer-technology.jpg" alt="Consumer Technology Association"></div>
+                <div class="member-card"><img src="images/logos/contra-costa.png" alt="Contra Costa Transportation Authority"></div>
+                <div class="member-card"><img src="images/logos/safer-trucking.jpg" alt="Institute for Safer Trucking"></div>
+                <div class="member-card"><img src="images/logos/its-america.png" alt="ITS America"></div>
+                <div class="member-card"><img src="images/logos/jacksonville-transportation.png" alt="Jacksonville Transportation Authority"></div>
+                <div class="member-card"><img src="images/logos/mema.png" alt="MEMA"></div>
+                <div class="member-card"><img src="images/logos/national-manufacturers.png" alt="National Association of Manufacturers"></div>
+                <div class="member-card"><img src="images/logos/ncil.png" alt="National Council on Independent Living"></div>
+                <div class="member-card"><img src="images/logos/nfb.png" alt="National Federation of the Blind"></div>
+                <div class="member-card"><img src="images/logos/nrf.png" alt="National Retail Federation"></div>
+                <div class="member-card"><img src="images/logos/nvca.png" alt="National Venture Capital Association"></div>
+                <div class="member-card"><img src="images/logos/pave.jpg" alt="Partners for Automated Vehicle Education"></div>
+                <div class="member-card"><img src="images/logos/reason.png" alt="Reason Foundation"></div>
+                <div class="member-card"><img src="images/logos/road-safe-america.png" alt="Road Safe America"></div>
+                <div class="member-card"><img src="images/logos/safer-roads-all.png" alt="Safer Roads for All"></div>
+                <div class="member-card"><img src="images/logos/technet.png" alt="TechNet"></div>
+                <div class="member-card"><img src="images/logos/truck-engine-manufacturers.png" alt="Truck & Engine Manufacturers"></div>
+                <div class="member-card"><img src="images/logos/us-chamber.png" alt="U.S. Chamber of Commerce"></div>
+                <div class="member-card"><img src="images/logos/united-spinal.png" alt="United Spinal Association"></div>
             </div>
         </div>
     </section>
