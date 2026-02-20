@@ -32,8 +32,8 @@
         .page-subtitle { font-family: 'Instrument Serif', serif; font-size: 1.25rem; color: #94a3b8; max-width: 48rem; margin: 0 auto; }
         
         /* Press Releases */
-        .press-container { max-width: 1024px; margin: 0 auto; padding: 4rem 1.5rem; }
-        .press-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .press-container { max-width: 900px; margin: 0 auto; padding: 4rem 1.5rem; }
+        .press-list { display: flex; flex-direction: column; gap: 2rem; }
         .press-card { 
             padding: 2rem; 
             background: rgba(30, 41, 59, 0.5); 
@@ -70,9 +70,57 @@
         .press-title { font-family: 'Space Mono', monospace; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; transition: color 0.3s; }
         .press-card:hover .press-title { color: #60a5fa; }
         .press-excerpt { color: #94a3b8; line-height: 1.6; margin-bottom: 1rem; }
-        .press-body { color: #cbd5e1; line-height: 1.7; font-size: 0.95rem; }
-        .press-body p { margin-bottom: 1rem; }
-        .press-body h2, .press-body h3 { color: #e2e8f0; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .press-body { 
+            color: #cbd5e1; 
+            line-height: 1.8; 
+            font-size: 1rem;
+            max-width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .press-body p { 
+            margin-bottom: 1.25rem; 
+            color: #cbd5e1;
+        }
+        .press-body h2 { 
+            color: #e2e8f0; 
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            margin-top: 2rem; 
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .press-body h3 { 
+            color: #e2e8f0; 
+            font-family: 'Space Mono', monospace;
+            font-size: 1.25rem;
+            margin-top: 1.5rem; 
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+        .press-body ul, .press-body ol {
+            margin: 1rem 0 1.5rem 1.5rem;
+            color: #cbd5e1;
+        }
+        .press-body li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+        .press-body strong {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+        .press-body em {
+            color: #94a3b8;
+            font-style: italic;
+        }
+        .press-body a {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+        .press-body a:hover {
+            color: #93c5fd;
+        }
         .press-arrow { flex-shrink: 0; color: #475569; transition: all 0.3s; }
         .press-card:hover .press-arrow { color: #60a5fa; transform: translateX(4px); }
         
@@ -246,12 +294,38 @@
                     const card = document.createElement('div');
                     card.className = 'press-card';
                     
-                    // Convert markdown to basic HTML (simple version)
-                    let bodyHtml = release.body
-                        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-                        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-                        .replace(/\n\n/g, '</p><p>')
-                        .replace(/^\s*(.+)$/gm, '<p>$1</p>');
+                    // Convert markdown to HTML with better parsing
+                    let bodyHtml = release.body;
+                    
+                    // Handle headings
+                    bodyHtml = bodyHtml.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+                    bodyHtml = bodyHtml.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+                    bodyHtml = bodyHtml.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+                    
+                    // Handle bold
+                    bodyHtml = bodyHtml.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+                    bodyHtml = bodyHtml.replace(/__(.+?)__/g, '<strong>$1</strong>');
+                    
+                    // Handle italic
+                    bodyHtml = bodyHtml.replace(/\*(.+?)\*/g, '<em>$1</em>');
+                    bodyHtml = bodyHtml.replace(/_(.+?)_/g, '<em>$1</em>');
+                    
+                    // Handle links
+                    bodyHtml = bodyHtml.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+                    
+                    // Handle line breaks - split by double newline for paragraphs
+                    const paragraphs = bodyHtml.split(/\n\n+/);
+                    bodyHtml = paragraphs
+                        .map(p => p.trim())
+                        .filter(p => p.length > 0)
+                        .map(p => {
+                            // Don't wrap headings in <p> tags
+                            if (p.startsWith('<h2>') || p.startsWith('<h3>')) {
+                                return p;
+                            }
+                            return `<p>${p}</p>`;
+                        })
+                        .join('\n');
                     
                     card.innerHTML = `
                         <div class="press-content">
@@ -260,10 +334,10 @@
                             <p class="press-excerpt">${release.excerpt}</p>
                             <div class="press-body">${bodyHtml}</div>
                             ${release.link && release.link !== '#' ? `
-                                <p style="margin-top: 1.5rem;">
+                                <p style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #334155;">
                                     <a href="${release.link}" target="_blank" rel="noopener noreferrer" 
-                                       style="color: #60a5fa; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                                        Read full release →
+                                       style="color: #60a5fa; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+                                        Read full release on external site →
                                     </a>
                                 </p>
                             ` : ''}
