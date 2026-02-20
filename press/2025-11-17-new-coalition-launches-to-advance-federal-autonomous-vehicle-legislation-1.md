@@ -6,22 +6,12 @@ excerpt: "United for Autonomy Brings Together Nation’s Leading Road Safety
 ---
 WASHINGTON, D.C. – Today, a diverse group of stakeholders announced the formation of United for Autonomy, a new coalition dedicated to advancing a federal policy framework for autonomous vehicles (AVs) in the United States. The group is comprised of 28 organizations that share a common goal: establishing a clear, consistent federal framework that enables the safe deployment of AVs while maintaining America’s global leadership in this transformative industry.
 
-In announcing United for Autonomy, the CEO of the Autonomous Vehicle Industry Association, Jeff Farrah, said, *“It is exciting to see a broad range of stakeholders come together to push 
-common sense policy that will solidify American leadership in autonomous
- vehicles. Autonomous vehicles have the potential to dramatically reduce
- the 40,000 traffic fatalities we see each year, provide independence to
- people who cannot drive, and strengthen American supply chains. But 
-realizing that potential requires federal government leadership.”*
+In announcing United for Autonomy, the CEO of the Autonomous Vehicle Industry Association, Jeff Farrah, said, *“It is exciting to see a broad range of stakeholders come together to push common sense policy that will solidify American leadership in autonomous vehicles. Autonomous vehicles have the potential to dramatically reduce the 40,000 traffic fatalities we see each year, provide independence to people who cannot drive, and strengthen American supply chains. But realizing that potential requires federal government leadership.”*
 
-A federal policy framework has been championed by the [Autonomous Vehicle Industry Association](http://www.theavindustry.org), a founding member of United for Autonomy. The association put forward policy recommendations in *[Securing American Leadership in Autonomous Vehicles](https://cdn.prod.website-files.com/67ee365c25e6530594bd40c2/683d8d2fa60ac22d542b1049_Securing%20American%20Leadership%20in%20Autonomous%20Vehicles1.pdf)*,
- earlier this year. The recommendations for policymakers emphasized the 
-urgent need for federal action to secure the United States’ position as a
- global leader in autonomous vehicle (AV) technology while ensuring 
-safety, fostering innovation, and promoting economic resilience.
+A federal policy framework has been championed by the [Autonomous Vehicle Industry Association](http://www.theavindustry.org), a founding member of United for Autonomy. The association put forward policy recommendations in *[Securing American Leadership in Autonomous Vehicles](https://cdn.prod.website-files.com/67ee365c25e6530594bd40c2/683d8d2fa60ac22d542b1049_Securing%20American%20Leadership%20in%20Autonomous%20Vehicles1.pdf)*, earlier this year. The recommendations for policymakers emphasized the 
+urgent need for federal action to secure the United States’ position as a global leader in autonomous vehicle (AV) technology while ensuring safety, fostering innovation, and promoting economic resilience.
 
-The
- coalition plans to engage with lawmakers, regulators, and the public to
- build support for a federal policy framework for autonomous vehicles.
+The coalition plans to engage with lawmakers, regulators, and the public to build support for a federal policy framework for autonomous vehicles.
 
 [United for Autonomy](http://www.unitedforautonomy.org) is comprised of 28 allied organizations, including:
 
@@ -55,8 +45,4 @@ The
 
 *Background*
 
-In recent years, U.S. states have led the charge on autonomous vehicle 
-policy. 26 states now have autonomous vehicle deployment laws and 
-authorize Level 4 or 5 autonomous driving systems on their roads. 
-However, only the federal government can uniformly regulate vehicle 
-design, construction, and performance. Federal action is needed.
+In recent years, U.S. states have led the charge on autonomous vehicle policy. 26 states now have autonomous vehicle deployment laws and authorize Level 4 or 5 autonomous driving systems on their roads. However, only the federal government can uniformly regulate vehicle design, construction, and performance. Federal action is needed.
