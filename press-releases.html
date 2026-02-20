@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press Releases | United for Autonomy</title>
+    <meta name="description" content="Latest news and press releases from United for Autonomy coalition.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; background: #020617; color: white; font-family: 'DM Sans', sans-serif; }
+        
+        /* Navigation */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #334155; }
+        .nav-container { max-width: 1280px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; text-decoration: none; color: white; }
+        .logo-accent { color: #60a5fa; }
+        .back-link { display: flex; align-items: center; gap: 0.5rem; color: #94a3b8; text-decoration: none; font-size: 0.875rem; transition: color 0.3s; }
+        .back-link:hover { color: #60a5fa; }
+        
+        /* Header */
+        .header { padding: 8rem 1.5rem 4rem; background: #0f172a; border-bottom: 1px solid #334155; }
+        .header-container { max-width: 1280px; margin: 0 auto; text-align: center; }
+        .page-title { font-family: 'Space Mono', monospace; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .gradient-text { background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+        .page-subtitle { font-family: 'Instrument Serif', serif; font-size: 1.25rem; color: #94a3b8; max-width: 48rem; margin: 0 auto; }
+        
+        /* Press Releases */
+        .press-container { max-width: 1024px; margin: 0 auto; padding: 4rem 1.5rem; }
+        .press-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .press-card { 
+            padding: 2rem; 
+            background: rgba(30, 41, 59, 0.5); 
+            border: 1px solid #334155; 
+            border-radius: 0.75rem; 
+            text-decoration: none; 
+            color: white; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 1rem; 
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+        .press-card::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #60a5fa, #a78bfa, #ec4899);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+        }
+        .press-card:hover::after { transform: scaleY(1); }
+        .press-card:hover { 
+            border-color: #3b82f6; 
+            background: #0f172a;
+            transform: translateX(8px);
+            box-shadow: -5px 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        .press-content { flex: 1; }
+        .press-date { font-size: 0.875rem; color: #60a5fa; margin-bottom: 0.5rem; }
+        .press-title { font-family: 'Space Mono', monospace; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; transition: color 0.3s; }
+        .press-card:hover .press-title { color: #60a5fa; }
+        .press-excerpt { color: #94a3b8; line-height: 1.6; margin-bottom: 1rem; }
+        .press-body { color: #cbd5e1; line-height: 1.7; font-size: 0.95rem; }
+        .press-body p { margin-bottom: 1rem; }
+        .press-body h2, .press-body h3 { color: #e2e8f0; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .press-arrow { flex-shrink: 0; color: #475569; transition: all 0.3s; }
+        .press-card:hover .press-arrow { color: #60a5fa; transform: translateX(4px); }
+        
+        /* Loading State */
+        .loading { text-align: center; padding: 4rem; color: #94a3b8; }
+        .loading-spinner { 
+            width: 40px; 
+            height: 40px; 
+            border: 3px solid #334155; 
+            border-top-color: #60a5fa; 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+            margin: 0 auto 1rem; 
+        }
+        @keyframes spin { 
+            to { transform: rotate(360deg); } 
+        }
+        
+        /* Empty State */
+        .empty-state { text-align: center; padding: 4rem; }
+        .empty-state h3 { font-family: 'Space Mono', monospace; font-size: 1.5rem; margin-bottom: 1rem; }
+        .empty-state p { color: #94a3b8; margin-bottom: 2rem; }
+        .empty-state a { display: inline-block; padding: 0.75rem 1.5rem; background: #2563eb; color: white; text-decoration: none; border-radius: 0.5rem; transition: all 0.3s; }
+        .empty-state a:hover { background: #3b82f6; }
+        
+        /* Footer */
+        footer { padding: 3rem 1.5rem; background: #020617; border-top: 1px solid #334155; margin-top: 4rem; }
+        .footer-container { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        @media (min-width: 768px) { .footer-container { flex-direction: row; justify-content: space-between; } }
+        .footer-logo { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; text-decoration: none; color: white; }
+        .footer-text { font-size: 0.875rem; color: #64748b; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                UNITED<span class="logo-accent">FOR</span>AUTONOMY
+            </a>
+            <a href="index.html#press" class="back-link">
+                <span>←</span>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="header">
+        <div class="header-container">
+            <h1 class="page-title">
+                <span class="gradient-text">Press Releases</span>
+            </h1>
+            <p class="page-subtitle">
+                Latest news and announcements from United for Autonomy
+            </p>
+        </div>
+    </section>
+
+    <!-- Press Releases -->
+    <section class="press-container">
+        <div id="press-list" class="press-list">
+            <!-- Loading state -->
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading press releases...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <a href="index.html" class="footer-logo">
+                UNITED<span class="logo-accent">FOR</span>AUTONOMY
+            </a>
+            <div class="footer-text">
+                © 2025 United for Autonomy. Building America's autonomous future.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load Press Releases -->
+    <script>
+        // Configuration
+        const GITHUB_CONFIG = {
+            owner: 'codyuhing',  // GitHub username
+            repo: 'united-for-autonomy'      // Repository name
+        };
+        
+        async function loadAllPressReleases() {
+            const pressList = document.getElementById('press-list');
+            
+            try {
+                // Fetch press releases from GitHub
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/press`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    showEmptyState();
+                    return;
+                }
+                
+                const files = await response.json();
+                const pressFiles = files.filter(file => file.name.endsWith('.md'));
+                
+                if (pressFiles.length === 0) {
+                    showEmptyState();
+                    return;
+                }
+                
+                // Load and parse each press release
+                const pressReleases = await Promise.all(
+                    pressFiles.map(async (file) => {
+                        const contentResponse = await fetch(file.download_url);
+                        const content = await contentResponse.text();
+                        
+                        // Parse YAML frontmatter
+                        const frontmatterMatch = content.match(/---\n([\s\S]*?)\n---/);
+                        if (!frontmatterMatch) return null;
+                        
+                        const frontmatter = frontmatterMatch[1];
+                        const body = content.replace(/---\n[\s\S]*?\n---\n/, '');
+                        
+                        const lines = frontmatter.split('\n');
+                        const data = {};
+                        
+                        lines.forEach(line => {
+                            const match = line.match(/^(\w+):\s*(.+)$/);
+                            if (match) {
+                                const key = match[1];
+                                let value = match[2].trim();
+                                value = value.replace(/^["']|["']$/g, '');
+                                data[key] = value;
+                            }
+                        });
+                        
+                        if (!data.title || !data.date || !data.excerpt) return null;
+                        
+                        return {
+                            title: data.title,
+                            date: new Date(data.date),
+                            excerpt: data.excerpt,
+                            body: body.trim(),
+                            link: data.link || '#'
+                        };
+                    })
+                );
+                
+                // Filter out nulls and sort by date
+                const validReleases = pressReleases
+                    .filter(release => release !== null)
+                    .sort((a, b) => b.date - a.date);
+                
+                if (validReleases.length === 0) {
+                    showEmptyState();
+                    return;
+                }
+                
+                // Clear loading state
+                pressList.innerHTML = '';
+                
+                // Create HTML for each press release
+                validReleases.forEach(release => {
+                    const formattedDate = release.date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    const card = document.createElement('div');
+                    card.className = 'press-card';
+                    
+                    // Convert markdown to basic HTML (simple version)
+                    let bodyHtml = release.body
+                        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+                        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+                        .replace(/\n\n/g, '</p><p>')
+                        .replace(/^\s*(.+)$/gm, '<p>$1</p>');
+                    
+                    card.innerHTML = `
+                        <div class="press-content">
+                            <div class="press-date">${formattedDate}</div>
+                            <h3 class="press-title">${release.title}</h3>
+                            <p class="press-excerpt">${release.excerpt}</p>
+                            <div class="press-body">${bodyHtml}</div>
+                            ${release.link && release.link !== '#' ? `
+                                <p style="margin-top: 1.5rem;">
+                                    <a href="${release.link}" target="_blank" rel="noopener noreferrer" 
+                                       style="color: #60a5fa; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                        Read full release →
+                                    </a>
+                                </p>
+                            ` : ''}
+                        </div>
+                    `;
+                    
+                    pressList.appendChild(card);
+                });
+                
+                console.log(`Loaded ${validReleases.length} press release(s)`);
+                
+            } catch (error) {
+                console.error('Error loading press releases:', error);
+                pressList.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Unable to Load Press Releases</h3>
+                        <p>Please make sure your GitHub username is configured correctly.</p>
+                        <a href="index.html">Return Home</a>
+                    </div>
+                `;
+            }
+        }
+        
+        function showEmptyState() {
+            const pressList = document.getElementById('press-list');
+            pressList.innerHTML = `
+                <div class="empty-state">
+                    <h3>No Press Releases Yet</h3>
+                    <p>Check back soon for updates from United for Autonomy.</p>
+                    <a href="index.html">Return Home</a>
+                </div>
+            `;
+        }
+        
+        // Load when page is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadAllPressReleases);
+        } else {
+            loadAllPressReleases();
+        }
+    </script>
+</body>
+</html>
