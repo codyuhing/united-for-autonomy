@@ -615,7 +615,7 @@
                 <!-- Future press releases will be added here by Decap CMS -->
             </div>
             <div class="view-all">
-                <a href="#" class="view-all-btn">View All Press Releases →</a>
+                <a href="press-releases.html" class="view-all-btn">View All Press Releases →</a>
             </div>
         </div>
     </section>
@@ -649,6 +649,123 @@
         menuBtn.addEventListener('click', function() { mobileMenu.classList.toggle('open'); });
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => { link.addEventListener('click', function() { mobileMenu.classList.remove('open'); }); });
+    </script>
+    
+    <!-- Load Press Releases from Decap CMS -->
+    <script>
+        // Configuration
+        const GITHUB_CONFIG = {
+            owner: 'codyuhing',  // GitHub username
+            repo: 'united-for-autonomy'      // Repository name
+        };
+        
+        async function loadPressReleases() {
+            const pressList = document.getElementById('press-list');
+            
+            try {
+                // Fetch press releases from GitHub
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/press`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    console.log('No press releases folder found yet. Add your first press release in /admin!');
+                    return;
+                }
+                
+                const files = await response.json();
+                const pressFiles = files.filter(file => file.name.endsWith('.md'));
+                
+                if (pressFiles.length === 0) {
+                    console.log('No press releases published yet');
+                    return;
+                }
+                
+                // Clear sample content
+                pressList.innerHTML = '';
+                
+                // Load and parse each press release
+                const pressReleases = await Promise.all(
+                    pressFiles.map(async (file) => {
+                        const contentResponse = await fetch(file.download_url);
+                        const content = await contentResponse.text();
+                        
+                        // Parse YAML frontmatter
+                        const frontmatterMatch = content.match(/---\n([\s\S]*?)\n---/);
+                        if (!frontmatterMatch) return null;
+                        
+                        const frontmatter = frontmatterMatch[1];
+                        const lines = frontmatter.split('\n');
+                        const data = {};
+                        
+                        lines.forEach(line => {
+                            const match = line.match(/^(\w+):\s*(.+)$/);
+                            if (match) {
+                                const key = match[1];
+                                let value = match[2].trim();
+                                // Remove quotes if present
+                                value = value.replace(/^["']|["']$/g, '');
+                                data[key] = value;
+                            }
+                        });
+                        
+                        if (!data.title || !data.date || !data.excerpt) return null;
+                        
+                        return {
+                            title: data.title,
+                            date: new Date(data.date),
+                            excerpt: data.excerpt,
+                            link: data.link || '#'
+                        };
+                    })
+                );
+                
+                // Filter out nulls and sort by date
+                const validReleases = pressReleases
+                    .filter(release => release !== null)
+                    .sort((a, b) => b.date - a.date);
+                
+                // Create HTML for each press release
+                validReleases.forEach(release => {
+                    const formattedDate = release.date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    const card = document.createElement('a');
+                    card.href = release.link;
+                    card.className = 'press-card';
+                    if (release.link !== '#') {
+                        card.target = '_blank';
+                        card.rel = 'noopener noreferrer';
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="press-content">
+                            <div class="press-date">${formattedDate}</div>
+                            <h3 class="press-title">${release.title}</h3>
+                            <p class="press-excerpt">${release.excerpt}</p>
+                        </div>
+                        <span>→</span>
+                    `;
+                    
+                    pressList.appendChild(card);
+                });
+                
+                console.log(`Loaded ${validReleases.length} press release(s)`);
+                
+            } catch (error) {
+                console.error('Error loading press releases:', error);
+                console.log('To fix: Update GITHUB_CONFIG at the top of this script with your GitHub username');
+            }
+        }
+        
+        // Load when page is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadPressReleases);
+        } else {
+            loadPressReleases();
+        }
     </script>
     
     <!-- MailerLite Universal -->
