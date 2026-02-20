@@ -122,7 +122,9 @@
         }
         
         /* About */
-        .about { position: relative; padding: 5rem 1.5rem; background: #0f172a; overflow: hidden; }
+        .about { position: relative; padding: 5rem 1.5rem; background: #f1f5f9; overflow: hidden; }
+        .about .section-title { color: #1e293b; }
+        .about .about-text { color: #475569; }
         .about::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top left, rgba(30, 58, 138, 0.2), transparent); }
         .container { position: relative; max-width: 1280px; margin: 0 auto; }
         .section-title { font-family: 'Space Mono', monospace; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; text-align: center; margin-bottom: 3rem; letter-spacing: -0.02em; }
@@ -142,10 +144,10 @@
             }
         }
         .member-card { 
-            padding: 1.5rem; 
+            padding: 2rem; 
             background: #ffffff; 
-            border: 1px solid rgba(203, 213, 225, 0.5); 
-            border-radius: 0.5rem; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 0.75rem; 
             text-align: center; 
             font-size: 0.875rem; 
             color: #cbd5e1; 
@@ -155,11 +157,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         .member-card img {
             width: auto;
-            height: 70px;
-            max-width: 90%;
+            height: 65px;
+            max-width: 85%;
             object-fit: contain;
             transition: all 0.3s ease;
         }
@@ -167,10 +170,9 @@
             transform: scale(1.05);
         }
         .member-card:hover { 
-            border-color: rgba(96, 165, 250, 0.8); 
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(96, 165, 250, 0.3);
+            border-color: #60a5fa; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
         }
         
         /* Stats */
