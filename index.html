@@ -188,11 +188,11 @@
         
         /* Stats */
         .stats { padding: 4rem 1.5rem; background: #020617; border-top: 1px solid #334155; border-bottom: 1px solid #334155; }
-        .stats-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto; grid-auto-rows: 1fr; }
+        .stats-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto; }
         @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
         .stat-card { 
-            padding: 2rem; 
+            padding: 2rem 1.5rem; 
             background: rgba(30, 41, 59, 0.5); 
             border: 1px solid #334155; 
             border-radius: 0.75rem; 
@@ -203,8 +203,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            min-height: 220px;
-            height: 100%;
+            height: 240px;
             position: relative;
             overflow: hidden;
         }
@@ -231,7 +230,7 @@
         }
         .stat-value { 
             font-family: 'Space Mono', monospace; 
-            font-size: clamp(2rem, 4vw, 2.5rem); 
+            font-size: clamp(1.75rem, 4vw, 2.25rem); 
             font-weight: 700; 
             color: #60a5fa; 
             margin-bottom: 1rem; 
@@ -240,6 +239,8 @@
             z-index: 1;
             transition: all 0.3s ease;
             line-height: 1.2;
+            max-width: 100%;
+            word-wrap: break-word;
         }
         .stat-card:hover .stat-value {
             transform: scale(1.1);
