@@ -188,7 +188,7 @@
         
         /* Stats */
         .stats { padding: 4rem 1.5rem; background: #020617; border-top: 1px solid #334155; border-bottom: 1px solid #334155; }
-        .stats-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto; }
+        .stats-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto; grid-auto-rows: 1fr; }
         @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
         .stat-card { 
@@ -203,8 +203,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            min-height: 200px;
-            aspect-ratio: 1 / 1;
+            min-height: 220px;
+            height: 100%;
             position: relative;
             overflow: hidden;
         }
@@ -231,7 +231,7 @@
         }
         .stat-value { 
             font-family: 'Space Mono', monospace; 
-            font-size: clamp(2.5rem, 5vw, 3rem); 
+            font-size: clamp(2rem, 4vw, 2.5rem); 
             font-weight: 700; 
             color: #60a5fa; 
             margin-bottom: 1rem; 
@@ -239,6 +239,7 @@
             position: relative;
             z-index: 1;
             transition: all 0.3s ease;
+            line-height: 1.2;
         }
         .stat-card:hover .stat-value {
             transform: scale(1.1);
@@ -478,7 +479,7 @@
         <div class="hero-content">
             <div class="badge">28 Organizations. One Mission.</div>
             <h1>America Needs a<br><span class="gradient-text">Federal AV Framework</span></h1>
-            <p>China has moved ahead with national AV regulations, while America has failed to put in place a federal policy framework. It's time for unified leadership to secure our technological future.</p>
+            <p>While China races ahead with national AV regulations, America operates under a patchwork of state laws. It's time for unified leadership to secure our technological future.</p>
             <a href="#join" class="cta-button">Join the Coalition →</a>
         </div>
     </section>
@@ -560,11 +561,11 @@
             <div class="reasons-grid">
                 <div class="reason-card">
                     <h3 class="reason-title">State Policies</h3>
-                    <p class="reason-desc">26 states have AV laws. America needs a federal policy framework.</p>
+                    <p class="reason-desc">26 states have AV laws. America needs unified national standards.</p>
                 </div>
                 <div class="reason-card">
                     <h3 class="reason-title">Safety First</h3>
-                    <p class="reason-desc">Human error causes the overwhelming majority of crashes. AVs offer a data-driven path to safer roads.</p>
+                    <p class="reason-desc">Human error causes 94% of crashes. AVs offer a data-driven path to safer roads.</p>
                 </div>
                 <div class="reason-card">
                     <h3 class="reason-title">Global Race</h3>
