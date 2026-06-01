@@ -739,6 +739,7 @@
                         
                         return {
                             title: data.title,
+                            slug: data.slug || data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
                             date: new Date(data.date),
                             excerpt: data.excerpt,
                             link: data.link || '#'
@@ -759,8 +760,11 @@
                         day: 'numeric'
                     });
                     
+                    // Create unique URL using slug
+                    const detailUrl = `/press/${release.slug}.html`;
+                    
                     const card = document.createElement('a');
-                    card.href = 'press-releases.html';
+                    card.href = detailUrl;
                     card.className = 'press-card';
                     card.innerHTML = `
                         <div class="press-content">
