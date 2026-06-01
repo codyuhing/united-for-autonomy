@@ -1,5 +1,6 @@
 ---
 title: United For Autonomy Urges Congressional Leadership to Support SELF DRIVE Act
+slug: united-for-autonomy-letter-support-self-drive-act
 date: 2026-05-19T14:53:00.000-04:00
 excerpt: Members of United for Autonomy, a coalition dedicated to advancing a
   federal policy framework for autonomous vehicles (AVs) in the United States,
