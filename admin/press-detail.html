@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press Release | United for Autonomy</title>
+    <meta name="description" content="United for Autonomy press release">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; background: #020617; color: white; font-family: 'DM Sans', sans-serif; }
+        
+        /* Navigation */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: all 0.3s ease; background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid #334155; backdrop-filter: blur(12px); }
+        .nav-container { max-width: 1280px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; text-decoration: none; color: white; }
+        .logo-accent { color: #60a5fa; }
+        .nav-links { display: none; gap: 2rem; font-size: 0.875rem; }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a:hover { color: #60a5fa; }
+        
+        /* Press Detail */
+        .press-detail { padding: 8rem 1.5rem 5rem; background: #0f172a; min-height: 100vh; }
+        .press-detail-container { max-width: 800px; margin: 0 auto; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #60a5fa; text-decoration: none; margin-bottom: 2rem; transition: all 0.3s; }
+        .back-link:hover { gap: 1rem; }
+        .press-date { font-size: 1rem; color: #60a5fa; margin-bottom: 1rem; font-weight: 600; }
+        .press-detail h1 { font-family: 'Space Mono', monospace; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 2rem; line-height: 1.2; }
+        .press-detail-content { font-size: 1.125rem; line-height: 1.8; color: #cbd5e1; }
+        .press-detail-content h2 { font-family: 'Space Mono', monospace; font-size: 1.75rem; font-weight: 700; margin: 2.5rem 0 1rem; color: #60a5fa; }
+        .press-detail-content h3 { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; margin: 2rem 0 1rem; }
+        .press-detail-content p { margin-bottom: 1.5rem; }
+        .press-detail-content a { color: #60a5fa; text-decoration: none; transition: color 0.3s; }
+        .press-detail-content a:hover { color: #93c5fd; text-decoration: underline; }
+        .press-detail-content ul, .press-detail-content ol { margin-left: 2rem; margin-bottom: 1.5rem; }
+        .press-detail-content li { margin-bottom: 0.5rem; }
+        
+        .loading { text-align: center; padding: 4rem 1.5rem; }
+        .loading-spinner { 
+            display: inline-block; 
+            width: 40px; 
+            height: 40px; 
+            border: 4px solid #334155; 
+            border-top-color: #60a5fa; 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .error { color: #ef4444; padding: 2rem; text-align: center; }
+        
+        /* Footer */
+        footer { padding: 3rem 1.5rem; background: #020617; border-top: 1px solid #334155; text-align: center; }
+        .footer-text { font-size: 0.875rem; color: #64748b; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">UNITED<span class="logo-accent">FOR</span>AUTONOMY</a>
+        </div>
+    </nav>
+
+    <section class="press-detail">
+        <div class="press-detail-container">
+            <a href="/press-releases.html" class="back-link">← Back to Press</a>
+            
+            <div id="press-content" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading press release...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-text">© 2025 United for Autonomy. Building America's autonomous future.</div>
+    </footer>
+
+    <script>
+        // GitHub config
+        const GITHUB_CONFIG = {
+            owner: 'codyuhing',
+            repo: 'united-for-autonomy'
+        };
+
+        async function loadPressDetail() {
+            const contentDiv = document.getElementById('press-content');
+            
+            try {
+                // Get slug from URL (e.g., /press/coalition-launches.html -> coalition-launches)
+                const urlPath = window.location.pathname;
+                const match = urlPath.match(/\/press\/([^/.]+)/);
+                
+                if (!match) {
+                    contentDiv.innerHTML = '<div class="error">Press release not found</div>';
+                    return;
+                }
+                
+                const slug = match[1];
+                
+                // Fetch all press files
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/press`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    contentDiv.innerHTML = '<div class="error">Press release not found</div>';
+                    return;
+                }
+                
+                const files = await response.json();
+                const pressFiles = files.filter(file => file.name.endsWith('.md'));
+                
+                // Find matching file
+                let foundFile = null;
+                for (const file of pressFiles) {
+                    const contentResponse = await fetch(file.download_url);
+                    const content = await contentResponse.text();
+                    
+                    // Parse YAML frontmatter to find matching slug
+                    const frontmatterMatch = content.match(/---\n([\s\S]*?)\n---/);
+                    if (!frontmatterMatch) continue;
+                    
+                    const frontmatter = frontmatterMatch[1];
+                    const lines = frontmatter.split('\n');
+                    const data = {};
+                    
+                    lines.forEach(line => {
+                        const match = line.match(/^(\w+):\s*(.+)$/);
+                        if (match) {
+                            const key = match[1];
+                            let value = match[2].trim();
+                            value = value.replace(/^["']|["']$/g, '');
+                            data[key] = value;
+                        }
+                    });
+                    
+                    // Check if this file's slug matches
+                    if (data.slug === slug) {
+                        foundFile = { content, data };
+                        break;
+                    }
+                }
+                
+                if (!foundFile) {
+                    contentDiv.innerHTML = '<div class="error">Press release not found</div>';
+                    return;
+                }
+                
+                const { data, content } = foundFile;
+                
+                // Extract body (after frontmatter)
+                const bodyMatch = content.match(/---\n[\s\S]*?\n---([\s\S]*)/);
+                const body = bodyMatch ? bodyMatch[1].trim() : '';
+                
+                // Parse markdown to HTML (basic conversion)
+                const htmlBody = markdownToHtml(body);
+                
+                // Format date
+                const dateObj = new Date(data.date);
+                const formattedDate = dateObj.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // Update page title and meta
+                document.title = `${data.title} | United for Autonomy`;
+                document.querySelector('meta[name="description"]').content = data.excerpt || data.title;
+                
+                // Render content
+                contentDiv.innerHTML = `
+                    <div class="press-date">${formattedDate}</div>
+                    <h1>${data.title}</h1>
+                    <div class="press-detail-content">
+                        ${htmlBody}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading press release:', error);
+                contentDiv.innerHTML = '<div class="error">Error loading press release. Please try again later.</div>';
+            }
+        }
+
+        // Simple markdown to HTML converter
+        function markdownToHtml(markdown) {
+            let html = markdown;
+            
+            // Headers
+            html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+            html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+            html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
+            
+            // Bold
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+            
+            // Italic
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+            
+            // Links
+            html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+            
+            // Line breaks and paragraphs
+            html = html.split('\n\n').map(para => `<p>${para.trim()}</p>`).join('');
+            
+            // Lists
+            html = html.replace(/^- (.*?)$/gm, '<li>$1</li>');
+            html = html.replace(/(<li>.*?<\/li>)/s, '<ul>$1</ul>');
+            html = html.replace(/<\/li>\n<li>/g, '</li>\n<li>');
+            
+            return html;
+        }
+
+        // Load when ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadPressDetail);
+        } else {
+            loadPressDetail();
+        }
+    </script>
+</body>
+</html>

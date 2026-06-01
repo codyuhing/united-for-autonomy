@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>United for Autonomy | Advancing Federal AV Framework</title>
+    <meta name="description" content="A coalition of 28 organizations united to advance U.S. leadership in autonomous vehicles through comprehensive federal legislation.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Netlify Identity Widget for Decap CMS -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; background: #020617; color: white; font-family: 'DM Sans', sans-serif; }
+        
+        /* Navigation */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: all 0.3s ease; background: transparent; }
+        nav.scrolled { background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #334155; }
+        .nav-container { max-width: 1280px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; }
+        .logo-accent { color: #60a5fa; }
+        .nav-links { display: none; gap: 2rem; font-size: 0.875rem; }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #60a5fa;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover { color: #60a5fa; }
+        .mobile-menu-btn { display: block; background: none; border: none; color: white; cursor: pointer; padding: 0.5rem; font-size: 1.5rem; }
+        .mobile-menu { display: none; background: #0f172a; border-top: 1px solid #334155; padding: 1.5rem; }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a { display: block; color: white; text-decoration: none; padding: 1rem 0; transition: color 0.2s; }
+        .mobile-menu a:hover { color: #60a5fa; }
+        @media (min-width: 768px) {
+            .nav-links { display: flex; }
+            .mobile-menu-btn { display: none; }
+        }
+        
+        /* Hero */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background-image: url('generic.jpg'); background-size: cover; background-position: center; background-color: #1e3a8a; }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(2, 6, 23, 0.5); }
+        .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, rgba(2, 6, 23, 0.3), #020617); }
+        .hero-content { position: relative; z-index: 10; max-width: 1280px; margin: 0 auto; padding: 8rem 1.5rem; text-align: center; }
+        .badge { 
+            display: inline-block; 
+            margin-bottom: 1.5rem; 
+            padding: 0.5rem 1rem; 
+            background: rgba(59, 130, 246, 0.1); 
+            border: 1px solid rgba(59, 130, 246, 0.3); 
+            border-radius: 9999px; 
+            font-size: 0.875rem; 
+            color: #60a5fa; 
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .badge:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: scale(1.05);
+        }
+        .hero h1 { font-family: 'Space Mono', monospace; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; line-height: 1.1; margin-bottom: 2rem; letter-spacing: -0.02em; }
+        .gradient-text { background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+        .hero p { font-family: 'Instrument Serif', serif; font-size: clamp(1.25rem, 3vw, 1.5rem); color: #cbd5e1; max-width: 48rem; margin: 0 auto 3rem; line-height: 1.6; }
+        .cta-button { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            padding: 1rem 2rem; 
+            background: #2563eb; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 0.5rem; 
+            font-weight: 600; 
+            font-size: 1.125rem; 
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+            box-shadow: 0 0 40px rgba(96, 165, 250, 0.3); 
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .cta-button:hover { 
+            background: #3b82f6; 
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 50px rgba(96, 165, 250, 0.5);
+        }
+        
+        /* About */
+        .about { position: relative; padding: 5rem 1.5rem; background: #0f172a; overflow: hidden; }
+        .about::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top left, rgba(30, 58, 138, 0.2), transparent); }
+        .container { position: relative; max-width: 1280px; margin: 0 auto; }
+        .section-title { font-family: 'Space Mono', monospace; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; text-align: center; margin-bottom: 3rem; letter-spacing: -0.02em; }
+        .about-text { max-width: 56rem; margin: 0 auto 4rem; font-size: 1.125rem; line-height: 1.7; color: #cbd5e1; text-align: center; }
+        .members-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 1rem; 
+            margin-top: 4rem;
+        }
+        @media (min-width: 768px) { 
+            .members-grid { grid-template-columns: repeat(3, 1fr); } 
+        }
+        @media (min-width: 1024px) { 
+            .members-grid { 
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        @media (min-width: 1280px) { 
+            .members-grid { 
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+        .member-card { 
+            padding: 0.5rem; 
+            background: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 0.75rem; 
+            text-align: center; 
+            font-size: 0.875rem; 
+            color: #cbd5e1; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .member-card img {
+            width: auto;
+            height: 150px;
+            max-width: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+        .member-card:hover img {
+            transform: scale(1.05);
+        }
+        .member-card:hover { 
+            border-color: #60a5fa; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+        }
+        .member-spacer {
+            display: none;
+        }
+        @media (min-width: 1280px) {
+            .member-spacer {
+                display: block;
+            }
+        }
+        
+        /* Stats */
+        .stats { padding: 4rem 1.5rem; background: #020617; border-top: 1px solid #334155; border-bottom: 1px solid #334155; }
+        .stats-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto; }
+        @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+        .stat-card { 
+            padding: 2rem 1.5rem; 
+            background: rgba(30, 41, 59, 0.5); 
+            border: 1px solid #334155; 
+            border-radius: 0.75rem; 
+            backdrop-filter: blur(4px); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 240px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(96, 165, 250, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .stat-card:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+        .stat-card:hover { 
+            transform: translateY(-8px) rotate(1deg); 
+            box-shadow: 0 20px 60px rgba(96, 165, 250, 0.4);
+            border-color: rgba(96, 165, 250, 0.6);
+        }
+        .stat-value { 
+            font-family: 'Space Mono', monospace; 
+            font-size: clamp(1.75rem, 4vw, 2.25rem); 
+            font-weight: 700; 
+            color: #60a5fa; 
+            margin-bottom: 1rem; 
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            line-height: 1.2;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+        .stat-card:hover .stat-value {
+            transform: scale(1.1);
+            color: #93c5fd;
+        }
+        .stat-label { 
+            font-family: 'DM Sans', sans-serif; 
+            font-weight: 400; 
+            font-size: 1.125rem; 
+            text-align: center; 
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Why */
+        .why { padding: 5rem 1.5rem; background: #0f172a; }
+        .why-header { text-align: center; margin-bottom: 4rem; }
+        .why-subtitle { font-size: 1.25rem; color: #94a3b8; max-width: 48rem; margin: 1.5rem auto 0; }
+        .accent { color: #60a5fa; }
+        .reasons-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1rem; max-width: 1280px; margin: 0 auto; }
+        @media (min-width: 1024px) { .reasons-grid { grid-template-columns: repeat(5, 1fr); } }
+        .reason-card { 
+            padding: 1.5rem; 
+            border: 1px solid #334155; 
+            border-radius: 0.75rem; 
+            background: rgba(30, 41, 59, 0.3); 
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+            display: flex; 
+            flex-direction: column;
+            min-height: 220px;
+            position: relative;
+        }
+        .reason-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa, #ec4899);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .reason-card:hover { 
+            border-color: rgba(96, 165, 250, 0.6); 
+            background: rgba(96, 165, 250, 0.05);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(96, 165, 250, 0.2);
+        }
+        .reason-card:hover::after {
+            transform: scaleX(1);
+        }
+        .reason-title { 
+            font-family: 'Space Mono', monospace; 
+            font-size: 1.125rem; 
+            font-weight: 700; 
+            line-height: 1.3; 
+            margin-bottom: 0.75rem; 
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .reason-card:hover .reason-title {
+            color: #60a5fa;
+        }
+        .reason-desc { font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 400; line-height: 1.6; color: #94a3b8; flex: 1; text-align: center; }
+        
+        /* Resources */
+        .resources { padding: 5rem 1.5rem; background: #020617; }
+        .resources-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem; max-width: 1024px; margin: 0 auto; }
+        @media (min-width: 768px) { .resources-grid { grid-template-columns: repeat(2, 1fr); } }
+        .resource-card { 
+            padding: 2rem; 
+            background: rgba(30, 41, 59, 0.5); 
+            border: 1px solid #334155; 
+            border-radius: 0.75rem; 
+            text-decoration: none; 
+            color: white; 
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+            display: block; 
+            position: relative;
+            overflow: hidden;
+        }
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        .resource-card:hover::before {
+            left: 100%;
+        }
+        .resource-card:hover { 
+            border-color: #3b82f6; 
+            background: #1e293b;
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+        }
+        .resource-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+        .resource-name { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; transition: color 0.3s; }
+        .resource-card:hover .resource-name { color: #60a5fa; }
+        .resource-title { color: #94a3b8; }
+        
+        /* Press */
+        .press { padding: 5rem 1.5rem; background: #0f172a; border-top: 1px solid #334155; border-bottom: 1px solid #334155; }
+        .press-list { max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+        .press-card { 
+            padding: 2rem; 
+            background: rgba(30, 41, 59, 0.5); 
+            border: 1px solid #334155; 
+            border-radius: 0.75rem; 
+            text-decoration: none; 
+            color: white; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 1rem; 
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+        .press-card::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #60a5fa, #a78bfa, #ec4899);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+        }
+        .press-card:hover::after {
+            transform: scaleY(1);
+        }
+        .press-card:hover { 
+            border-color: #3b82f6; 
+            background: #0f172a;
+            transform: translateX(8px);
+            box-shadow: -5px 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        .press-content { flex: 1; }
+        .press-date { font-size: 0.875rem; color: #60a5fa; margin-bottom: 0.5rem; }
+        .press-title { font-family: 'Space Mono', monospace; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; transition: color 0.3s; }
+        .press-card:hover .press-title { color: #60a5fa; }
+        .press-excerpt { color: #94a3b8; line-height: 1.6; }
+        .view-all { text-align: center; margin-top: 3rem; }
+        .view-all-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border: 1px solid #334155; border-radius: 0.5rem; color: white; text-decoration: none; transition: all 0.3s; }
+        .view-all-btn:hover { border-color: #3b82f6; }
+        
+        /* Join */
+        .join { position: relative; padding: 5rem 1.5rem; background: #020617; overflow: hidden; }
+        .join::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(30, 58, 138, 0.3), transparent); }
+        .join-container { position: relative; max-width: 48rem; margin: 0 auto; text-align: center; }
+        .join h2 { font-family: 'Space Mono', monospace; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        .join-subtitle { font-family: 'Instrument Serif', serif; font-size: 1.25rem; color: #cbd5e1; margin-bottom: 3rem; }
+        form { max-width: 40rem; margin: 0 auto; }
+        input { width: 100%; padding: 1rem 1.5rem; margin-bottom: 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; color: white; font-family: 'DM Sans', sans-serif; font-size: 1rem; transition: border-color 0.3s; }
+        input:focus { outline: none; border-color: #3b82f6; }
+        input::placeholder { color: #64748b; }
+        button[type="submit"] { width: 100%; padding: 1rem 2rem; background: #2563eb; color: white; border: none; border-radius: 0.5rem; font-family: 'DM Sans', sans-serif; font-size: 1.125rem; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 40px rgba(96, 165, 250, 0.3); }
+        button[type="submit"]:hover { background: #3b82f6; }
+        .form-note { margin-top: 1.5rem; font-size: 0.875rem; color: #64748b; }
+        
+        /* MailerLite Form Styling */
+        #mailerlite-form-container { max-width: 40rem; margin: 0 auto; }
+        #mailerlite-form-container .ml-embedded { background: transparent !important; border: none !important; }
+        #mailerlite-form-container .ml-form-embedContainer { background: transparent !important; }
+        #mailerlite-form-container .ml-form-embedWrapper { background: transparent !important; border: none !important; padding: 0 !important; }
+        #mailerlite-form-container .ml-form-embedBody { background: transparent !important; padding: 0 !important; }
+        #mailerlite-form-container .ml-form-embedContent { background: transparent !important; }
+        #mailerlite-form-container input[type="text"],
+        #mailerlite-form-container input[type="email"] { width: 100% !important; padding: 1rem 1.5rem !important; margin-bottom: 1rem !important; background: #1e293b !important; border: 1px solid #334155 !important; border-radius: 0.5rem !important; color: white !important; font-family: 'DM Sans', sans-serif !important; font-size: 1rem !important; transition: border-color 0.3s !important; box-sizing: border-box !important; }
+        #mailerlite-form-container input[type="text"]:focus,
+        #mailerlite-form-container input[type="email"]:focus { outline: none !important; border-color: #3b82f6 !important; }
+        #mailerlite-form-container input::placeholder { color: #64748b !important; }
+        #mailerlite-form-container button[type="submit"],
+        #mailerlite-form-container .ml-form-embedSubmit button { width: 100% !important; padding: 1rem 2rem !important; background: #2563eb !important; color: white !important; border: none !important; border-radius: 0.5rem !important; font-family: 'DM Sans', sans-serif !important; font-size: 1.125rem !important; font-weight: 600 !important; cursor: pointer !important; transition: all 0.3s !important; box-shadow: 0 0 40px rgba(96, 165, 250, 0.3) !important; }
+        #mailerlite-form-container button[type="submit"]:hover,
+        #mailerlite-form-container .ml-form-embedSubmit button:hover { background: #3b82f6 !important; }
+        #mailerlite-form-container .ml-form-successBody,
+        #mailerlite-form-container .ml-form-successContent { color: #60a5fa !important; font-family: 'DM Sans', sans-serif !important; text-align: center !important; padding: 1rem !important; background: transparent !important; }
+        #mailerlite-form-container .ml-form-successContent h4 { color: #60a5fa !important; }
+        /* Hide MailerLite branding */
+        #mailerlite-form-container .ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent .ml-form-checkboxRow { display: none !important; }
+        
+        
+        /* Footer */
+        footer { padding: 3rem 1.5rem; background: #020617; border-top: 1px solid #334155; }
+        .footer-container { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        @media (min-width: 768px) { .footer-container { flex-direction: row; justify-content: space-between; } }
+        .footer-logo { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; }
+        .footer-text { font-size: 0.875rem; color: #64748b; }
+        .hidden { display: none; }
+        
+        /* Floating Arrow */
+        .floating-arrow {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            animation: float 2s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <div class="nav-container">
+            <div class="logo">UNITED<span class="logo-accent">FOR</span>AUTONOMY</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#why">Why It Matters</a>
+                <a href="#resources">Research</a>
+                <a href="#press">Press</a>
+            </div>
+            <button class="mobile-menu-btn" id="menuBtn">☰</button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about">About</a>
+            <a href="#why">Why It Matters</a>
+            <a href="#resources">Research</a>
+            <a href="#press">Press</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <div class="badge">28 Organizations. One Mission.</div>
+            <h1>America Needs a<br><span class="gradient-text">Federal AV Framework</span></h1>
+            <p>While China races ahead with national AV regulations, America operates under a patchwork of state laws. It's time for unified leadership to secure our technological future.</p>
+            <a href="#join" class="cta-button">Join the Coalition →</a>
+        </div>
+    </section>
+
+    <!-- Floating Arrow -->
+    <div class="floating-arrow" style="width: 60px; height: 60px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </div>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Who We Are</h2>
+            <p class="about-text">United for Autonomy is a coalition of forward-thinking industries and mission-driven nonprofits united to advance U.S. leadership in autonomous vehicle innovation. We are committed to ensuring this transformative technology delivers on its promise of safety, accessibility, economic growth, and supply chain resilience. Through collaboration, advocacy, and education, we work to shape policies and public understanding that secure America's position at the forefront of autonomous mobility for the benefit of all.</p>
+            <h3 class="section-title" style="font-size: 1.5rem; margin-top: 4rem;">Our Coalition Members</h3>
+            <div class="members-grid">
+                <div class="member-card"><img src="images/logos/avia.png" alt="Autonomous Vehicle Industry Association"></div>
+                <div class="member-card"><img src="images/logos/aces.png" alt="ACES - Mobility Coalition"></div>
+                <div class="member-card"><img src="images/logos/alliance-automotive-innovation.png" alt="Alliance for Automotive Innovation"></div>
+                <div class="member-card"><img src="images/logos/american-council-blind.png" alt="American Council of the Blind"></div>
+                <div class="member-card"><img src="images/logos/american-trucking.png" alt="American Trucking Associations"></div>
+                <div class="member-card"><img src="images/logos/auvsi.png" alt="AUVSI"></div>
+                <div class="member-card"><img src="images/logos/bay-area-council.png" alt="Bay Area Council"></div>
+                <div class="member-card"><img src="images/logos/blinded-veterans.png" alt="Blinded Veterans Association"></div>
+                <div class="member-card"><img src="images/logos/chamber-progress.png" alt="Chamber of Progress"></div>
+                <div class="member-card"><img src="images/logos/consumer-technology.png" alt="Consumer Technology Association"></div>
+                <div class="member-card"><img src="images/logos/contra-costa.png" alt="Contra Costa Transportation Authority"></div>
+                <div class="member-card"><img src="images/logos/safer-trucking.png" alt="Institute for Safer Trucking"></div>
+                <div class="member-card"><img src="images/logos/its-america.png" alt="ITS America"></div>
+                <div class="member-card"><img src="images/logos/jacksonville-transportation.png" alt="Jacksonville Transportation Authority"></div>
+                <div class="member-card"><img src="images/logos/mema.png" alt="MEMA"></div>
+                <div class="member-card"><img src="images/logos/national-manufacturers.png" alt="National Association of Manufacturers"></div>
+                <div class="member-card"><img src="images/logos/ncil.png" alt="National Council on Independent Living"></div>
+                <div class="member-card"><img src="images/logos/nfb.png" alt="National Federation of the Blind"></div>
+                <div class="member-card"><img src="images/logos/nrf.png" alt="National Retail Federation"></div>
+                <div class="member-card"><img src="images/logos/nvca.png" alt="National Venture Capital Association"></div>
+                <div class="member-card"><img src="images/logos/pave.jpg" alt="Partners for Automated Vehicle Education"></div>
+                <div class="member-card"><img src="images/logos/reason.png" alt="Reason Foundation"></div>
+                <div class="member-card"><img src="images/logos/road-safe-america.png" alt="Road Safe America"></div>
+                <div class="member-card"><img src="images/logos/safer-roads-all.png" alt="Safer Roads for All"></div>
+                <!-- Invisible spacer to center last row -->
+                <div class="member-spacer"></div>
+                <div class="member-card"><img src="images/logos/technet.png" alt="TechNet"></div>
+                <div class="member-card"><img src="images/logos/truck-engine-manufacturers.png" alt="Truck & Engine Manufacturers"></div>
+                <div class="member-card"><img src="images/logos/us-chamber.png" alt="U.S. Chamber of Commerce"></div>
+                <div class="member-card"><img src="images/logos/united-spinal.png" alt="United Spinal Association"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <a href="https://cdn.prod.website-files.com/67ee2ad971d86c70d02ed03f/683802d318db2c77d4ce3d43_2025_StateOfAV_AnnualReport_Web.pdf" target="_blank" rel="noopener noreferrer" class="stat-card" style="text-decoration: none; color: inherit; display: flex;">
+                <div class="stat-value">Hundreds of Millions</div>
+                <div class="stat-label">Autonomous Miles Driven</div>
+            </a>
+            <a href="https://www.bts.gov/newsroom/freight-activity-us-expected-grow-fifty-percent-2050" target="_blank" rel="noopener noreferrer" class="stat-card" style="text-decoration: none; color: inherit; display: flex;">
+                <div class="stat-value">50%</div>
+                <div class="stat-label">Freight Demand Increase</div>
+            </a>
+            <a href="https://www.nhtsa.gov/press-releases/nhtsa-estimates-39345-traffic-fatalities-2024" target="_blank" rel="noopener noreferrer" class="stat-card" style="text-decoration: none; color: inherit; display: flex;">
+                <div class="stat-value">39,345</div>
+                <div class="stat-label">Road Deaths in 2024</div>
+            </a>
+            <a href="https://progresschamber.org/wp-content/uploads/2024/03/Opportunity-AV-How-Many-and-What-Type-of-Jobs-Will-Be-Created-by-Autonomous-Vehicles.pdf" target="_blank" rel="noopener noreferrer" class="stat-card" style="text-decoration: none; color: inherit; display: flex;">
+                <div class="stat-value">Thousands</div>
+                <div class="stat-label">of AV-Related Jobs</div>
+            </a>
+        </div>
+    </section>
+
+    <section id="why" class="why">
+        <div class="container">
+            <div class="why-header">
+                <h2 class="section-title">Why Federal Action is <span class="accent">Urgent</span></h2>
+                <p class="why-subtitle">The pieces are in place. The technology is proven. What's missing is national leadership.</p>
+            </div>
+            <div class="reasons-grid">
+                <div class="reason-card">
+                    <h3 class="reason-title">State Policies</h3>
+                    <p class="reason-desc">26 states have AV laws. America needs unified national standards.</p>
+                </div>
+                <div class="reason-card">
+                    <h3 class="reason-title">Safety First</h3>
+                    <p class="reason-desc">Human error causes 94% of crashes. AVs offer a data-driven path to safer roads.</p>
+                </div>
+                <div class="reason-card">
+                    <h3 class="reason-title">Global Race</h3>
+                    <p class="reason-desc">China is investing billions in AV tech. America must lead or follow.</p>
+                </div>
+                <div class="reason-card">
+                    <h3 class="reason-title">Economic Opportunity</h3>
+                    <p class="reason-desc">AVs will create thousands of jobs across skill levels—many requiring no college degree.</p>
+                </div>
+                <div class="reason-card">
+                    <h3 class="reason-title">Universal Access</h3>
+                    <p class="reason-desc">AVs expand mobility for seniors, people with disabilities, and underserved communities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="resources">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 class="section-title">Research & Resources</h2>
+                <p style="font-size: 1.25rem; color: #94a3b8;">Dive deeper into the data, safety research, and policy analysis.</p>
+            </div>
+            <div class="resources-grid">
+                <a href="https://www.theavindustry.org/fact-sheet" target="_blank" class="resource-card">
+                    <div class="resource-header">
+                        <h3 class="resource-name">AVIA</h3>
+                        <span>→</span>
+                    </div>
+                    <p class="resource-title">Industry Facts & Data</p>
+                </a>
+                <a href="https://www.saferroadsforall.org/get-the-facts-safety" target="_blank" class="resource-card">
+                    <div class="resource-header">
+                        <h3 class="resource-name">Safer Roads for All</h3>
+                        <span>→</span>
+                    </div>
+                    <p class="resource-title">Safety Research</p>
+                </a>
+                <a href="https://pavecampaign.org/resources/" target="_blank" class="resource-card">
+                    <div class="resource-header">
+                        <h3 class="resource-name">PAVE</h3>
+                        <span>→</span>
+                    </div>
+                    <p class="resource-title">Public Education</p>
+                </a>
+                <a href="https://www.autosinnovate.org/avs" target="_blank" class="resource-card">
+                    <div class="resource-header">
+                        <h3 class="resource-name">Auto Innovators</h3>
+                        <span>→</span>
+                    </div>
+                    <p class="resource-title">Technology Overview</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="press" class="press">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 class="section-title">Press Releases</h2>
+                <p style="font-size: 1.25rem; color: #94a3b8;">Latest news and announcements from United for Autonomy.</p>
+            </div>
+            <div class="press-list" id="press-list">
+                <a href="#" class="press-card">
+                    <div class="press-content">
+                        <div class="press-date">January 15, 2025</div>
+                        <h3 class="press-title">Coalition Launches United for Autonomy to Advance Federal AV Framework</h3>
+                        <p class="press-excerpt">28 leading organizations join forces to advocate for comprehensive federal autonomous vehicle legislation, emphasizing safety, economic growth, and American competitiveness.</p>
+                    </div>
+                    <span>→</span>
+                </a>
+                
+                <!-- Future press releases will be added here by Decap CMS -->
+            </div>
+            <div class="view-all">
+                <a href="press-releases.html" class="view-all-btn">View All Press Releases →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" class="join">
+        <div class="join-container">
+            <h2>Be Part of America's<br>AV Future</h2>
+            <p class="join-subtitle">Join our growing coalition of leaders, advocates, and stakeholders building the future of mobility.</p>
+            <!-- MailerLite Form -->
+            <div id="mailerlite-form-container">
+                <div class="ml-embedded" data-form="TlfrMX"></div>
+            </div>
+            <p class="form-note">Your information will be used to keep you updated on coalition activities and advocacy efforts.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">UNITED<span class="logo-accent">FOR</span>AUTONOMY</div>
+            <div class="footer-text">© 2025 United for Autonomy. Building America's autonomous future.</div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+        });
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', function() { mobileMenu.classList.toggle('open'); });
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => { link.addEventListener('click', function() { mobileMenu.classList.remove('open'); }); });
+    </script>
+    
+    <!-- Load Press Releases from Decap CMS -->
+    <script>
+        // Configuration
+        const GITHUB_CONFIG = {
+            owner: 'codyuhing',  // GitHub username
+            repo: 'united-for-autonomy'      // Repository name
+        };
+        
+        async function loadPressReleases() {
+            const pressList = document.getElementById('press-list');
+            
+            try {
+                // Fetch press releases from GitHub
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/press`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    console.log('No press releases folder found yet. Add your first press release in /admin!');
+                    return;
+                }
+                
+                const files = await response.json();
+                const pressFiles = files.filter(file => file.name.endsWith('.md'));
+                
+                if (pressFiles.length === 0) {
+                    console.log('No press releases published yet');
+                    return;
+                }
+                
+                // Clear sample content
+                pressList.innerHTML = '';
+                
+                // Load and parse each press release
+                const pressReleases = await Promise.all(
+                    pressFiles.map(async (file) => {
+                        const contentResponse = await fetch(file.download_url);
+                        const content = await contentResponse.text();
+                        
+                        // Parse YAML frontmatter
+                        const frontmatterMatch = content.match(/---\n([\s\S]*?)\n---/);
+                        if (!frontmatterMatch) return null;
+                        
+                        const frontmatter = frontmatterMatch[1];
+                        const lines = frontmatter.split('\n');
+                        const data = {};
+                        
+                        lines.forEach(line => {
+                            const match = line.match(/^(\w+):\s*(.+)$/);
+                            if (match) {
+                                const key = match[1];
+                                let value = match[2].trim();
+                                // Remove quotes if present
+                                value = value.replace(/^["']|["']$/g, '');
+                                data[key] = value;
+                            }
+                        });
+                        
+                        if (!data.title || !data.date || !data.excerpt) return null;
+                        
+                        return {
+                            title: data.title,
+                            slug: data.slug || data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
+                            date: new Date(data.date),
+                            excerpt: data.excerpt,
+                            link: data.link || '#'
+                        };
+                    })
+                );
+                
+                // Filter out nulls and sort by date
+                const validReleases = pressReleases
+                    .filter(release => release !== null)
+                    .sort((a, b) => b.date - a.date);
+                
+                // Create HTML for each press release
+                validReleases.forEach(release => {
+                    const formattedDate = release.date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    // Create unique URL using slug
+                    const detailUrl = `/press/${release.slug}.html`;
+                    
+                    const card = document.createElement('a');
+                    card.href = detailUrl;
+                    card.className = 'press-card';
+                    card.innerHTML = `
+                        <div class="press-content">
+                            <div class="press-date">${formattedDate}</div>
+                            <h3 class="press-title">${release.title}</h3>
+                            <p class="press-excerpt">${release.excerpt}</p>
+                        </div>
+                        <span>→</span>
+                    `;
+                    
+                    pressList.appendChild(card);
+                });
+                
+                console.log(`Loaded ${validReleases.length} press release(s)`);
+                
+            } catch (error) {
+                console.error('Error loading press releases:', error);
+                console.log('To fix: Update GITHUB_CONFIG at the top of this script with your GitHub username');
+            }
+        }
+        
+        // Load when page is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadPressReleases);
+        } else {
+            loadPressReleases();
+        }
+    </script>
+    
+    <!-- MailerLite Universal -->
+    <script>
+        (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+        .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+        n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+        (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+        ml('account', '1832760');
+    </script>
+    <!-- End MailerLite Universal -->
+    
+    <!-- Netlify Identity Redirect -->
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
